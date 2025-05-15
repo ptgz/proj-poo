@@ -1,9 +1,15 @@
 namespace Interfaces;
-public class IGame {
-    public string Date {get; set;}
-    public string Place  {get; set;}
-    public string FieldType {get; set;}
-    public int PlayersPerTeam {get; set;}
-    
-    
-}
+using Enums;
+using Models;
+
+public interface IGame
+    {
+        int GameId { get; set; }
+        DateTime Date { get; set; }
+        string Location { get; set; }
+        FieldType FieldType { get; set; }
+        int PlayersPerTeam { get; set; }
+        int MaxTeams { get; set; }
+        int MaxPlayers { get; set; }
+        DateTime CreationDate { get; set; }
+    }

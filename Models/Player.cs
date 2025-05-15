@@ -1,34 +1,13 @@
 using Interfaces;
+using Enums;
 using MySql.Data.MySqlClient;
+using Models;
 namespace Models;
 
-public class Player : IPlayer {
-    
-    
-    public Player() {}
-    public Player(string ra, string name, int age, string position, string group = "N/A")
+public class Player : Interfaces.IPlayer
     {
-        DBHandler db = new DBHandler();
-        db.SqlQuery($"INSERT INTO players (ra, name, age, position, `group`) VALUES ('{ra}', '{name}', {age}, '{position}', '{group}')");
-
-        this.Ra = ra;
-        this.Name = name;
-        this.Age = age;
-        this.Position = position;
-        this.Group = group;
-
-
+        public int PlayerId { get; set; }
+        public required string Name { get; set; }
+        public int Age { get; set; }
+        public PlayerPosition Position { get; set; }
     }
-
-    public static void Remove(string ra)
-	{
-        DBHandler db = new DBHandler();
-		db.SqlQuery($"DELETE FROM players WHERE ra = '{ra}'");
-    }
-    
-
-
-
-    
-}
-

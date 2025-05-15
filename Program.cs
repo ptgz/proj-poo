@@ -1,38 +1,56 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+
+using Enums;
 using MySqlConnector;
 using Renci.SshNet;
 using Models;
+using Org.BouncyCastle.Asn1.Cms;
 
+using System;
 class Program
 {
     static void Main()
     {
-        DBHandler dBH = new DBHandler();
+        DBHandler db = new DBHandler();
 
-        // teste de players
-        Player gabriel = new Player("036621","Gabriel",24,"Goalkeeper","Grupo do UNASP");
-        Console.WriteLine(gabriel.Group);
+        Console.WriteLine("testando criacao de jogador");
+        var player = new Player
+        {
+            Name = "osama",
+            Age = 54,
+            Position = PlayerPosition.AT
+        };
+        db.CreatePlayer(player);
+        Console.WriteLine("ok");
 
-        Player unknown = dBH.GetPlayerByRa(gabriel.Ra);
-        Console.WriteLine(unknown.Group);
+        Console.WriteLine("pegando tdds os players");
+        foreach (var p in db.GetAllPlayers())
+        {
+            Console.WriteLine($"{p.PlayerId}: {p.Name}, {p.Age}, {p.Position}");
+        }
 
-        Player.Remove(gabriel.Ra);
+        Console.WriteLine("criando jogo");
+        var game = new Game
+        {
+            Date = DateTime.Now.AddDays(3),
+            Location = "esconderijo do ninja",
+            FieldType = FieldType.indoor,
+            PlayersPerTeam = 5,
+            MaxTeams = 6,
+            MaxPlayers = 13,
+            CreationDate = DateTime.Now
+        };
+        db.CreateGame(game);
+        Console.WriteLine("ok");
 
-        // teste de jogos
-        Game jogo1 = new Game("0",1,"Mansão do Kristian","Normal",11);
-        Console.WriteLine(jogo1.Id);
-        
-        Game jogo = dBH.GetGameById(jogo1.Id);
-        Console.WriteLine(jogo.Id);
-        Console.WriteLine(dBH.GetAllGames());
+        Console.WriteLine("pegando todos os jogos");
+        foreach (var g in db.GetAllGames())
+        {
+            Console.WriteLine($"{g.GameId}: {g.Date}, {g.Location}, {g.FieldType}");
+        }
 
-        Game.Remove(jogo1.Id);
-
-
-    
-
+        Console.WriteLine("ok");
     }
 }
-
