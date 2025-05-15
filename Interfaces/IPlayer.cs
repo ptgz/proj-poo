@@ -1,10 +1,9 @@
 namespace Interfaces;
-public class IPlayer {
-    public string Name {get; set;}
-    public int Age  {get; set;}
-    public string Position {get; set;}
-    public string Ra {get; set;}
-    public string Group {get; set;}
-    
-    
-}
+using Enums;
+public interface IPlayer
+    {
+        int PlayerId { get; set; }
+        string Name { get; set; }
+        int Age { get; set; }
+        PlayerPosition Position { get; set; }
+    }
